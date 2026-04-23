@@ -47,10 +47,22 @@ interface Props {
 }
 
 const LAYOUT_OPTIONS = [
-  { value: "full", label: "Full Screen", slots: 1 },
-  { value: "half-vertical", label: "Half Vertical (L/R)", slots: 2 },
-  { value: "half-horizontal", label: "Half Horizontal (T/B)", slots: 2 },
-  { value: "quadrant", label: "Quadrant (2×2)", slots: 4 },
+  { value: "full", label: "Full Screen", slots: 1, slotLabels: undefined },
+  { value: "half-vertical", label: "Half Vertical (L/R)", slots: 2, slotLabels: undefined },
+  { value: "half-horizontal", label: "Half Horizontal (T/B)", slots: 2, slotLabels: undefined },
+  { value: "quadrant", label: "Quadrant (2×2)", slots: 4, slotLabels: undefined },
+  {
+    value: "split-left",
+    label: "Split Left (Half | Qt Qt)",
+    slots: 3,
+    slotLabels: ["Half (Left)", "Quarter (Top Right)", "Quarter (Bottom Right)"],
+  },
+  {
+    value: "split-right",
+    label: "Split Right (Qt Qt | Half)",
+    slots: 3,
+    slotLabels: ["Quarter (Top Left)", "Half (Right)", "Quarter (Bottom Left)"],
+  },
 ];
 
 export function PlaylistEditor({
@@ -314,7 +326,9 @@ function SortableItem({
             {Array.from({ length: slotCount }).map((_, i) => {
               const key = slotKeys[i];
               const label =
-                slotCount === 1
+                layout?.slotLabels
+                  ? (layout.slotLabels[i] ?? `Slot ${slotLabels[i]}`)
+                  : slotCount === 1
                   ? "Widget"
                   : slotCount === 2
                   ? i === 0 ? "Slot A (Left/Top)" : "Slot B (Right/Bottom)"

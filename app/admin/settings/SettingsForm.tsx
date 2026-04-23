@@ -12,23 +12,29 @@ interface NightMode {
 interface Props {
   nightMode: NightMode;
   cronSecret: string;
+  displayTheme: "dark" | "light";
 }
 
-export function SettingsForm({ nightMode: initialNightMode, cronSecret }: Props) {
+export function SettingsForm({ nightMode: initialNightMode, cronSecret, displayTheme: initialTheme }: Props) {
   const [nightMode, setNightMode] = useState(initialNightMode);
+  const [displayTheme, setDisplayTheme] = useState<"dark" | "light">(initialTheme);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [initialSavedTheme] = useState(initialTheme);
 
   async function handleSave() {
     setSaving(true);
     await fetch("/api/settings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ night_mode: nightMode }),
+      body: JSON.stringify({ night_mode: nightMode, display_theme: displayTheme }),
     });
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+    if (displayTheme !== initialSavedTheme) {
+      setTimeout(() => window.location.reload(), 400);
+    }
   }
 
   const inputClass =
@@ -36,6 +42,32 @@ export function SettingsForm({ nightMode: initialNightMode, cronSecret }: Props)
 
   return (
     <div className="space-y-8">
+      {/* Display theme */}
+      <section>
+        <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">
+          Display Theme
+        </h2>
+        <div className="flex gap-3">
+          {(["dark", "light"] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setDisplayTheme(t)}
+              className={`px-5 py-2 rounded-md border text-sm font-medium transition-colors ${
+                displayTheme === t
+                  ? "bg-white text-black border-white"
+                  : "border-gray-700 text-gray-400 hover:border-gray-500"
+              }`}
+            >
+              {t === "dark" ? "◼ Dark" : "◻ Light"}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-gray-600 mt-2">
+          Page reloads automatically after saving to apply the new theme.
+        </p>
+      </section>
+
       {/* Night mode */}
       <section>
         <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">

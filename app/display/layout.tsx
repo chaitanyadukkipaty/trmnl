@@ -22,7 +22,7 @@ export default function DisplayLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="fixed inset-0 overflow-hidden bg-black">
+    <div className="fixed inset-0 overflow-hidden bg-trmnl-bg">
       {children}
     </div>
   );

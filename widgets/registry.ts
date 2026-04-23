@@ -7,6 +7,7 @@ import { WeatherRenderer } from "./weather/renderer";
 import { RssRenderer } from "./rss/renderer";
 import { CustomHtmlRenderer } from "./custom-html/renderer";
 import { WebhookRenderer } from "./webhook/renderer";
+import { AqiRenderer } from "./aqi/renderer";
 import type React from "react";
 
 type RendererComponent = React.ComponentType<{
@@ -21,6 +22,7 @@ const renderers: Record<string, RendererComponent> = {
   rss: RssRenderer,
   "custom-html": CustomHtmlRenderer,
   webhook: WebhookRenderer,
+  aqi: AqiRenderer,
 };
 
 export const plugins = serverPlugins.map((meta) => ({

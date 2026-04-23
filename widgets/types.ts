@@ -2,7 +2,9 @@ export type LayoutType =
   | "full"
   | "half-vertical"
   | "half-horizontal"
-  | "quadrant";
+  | "quadrant"
+  | "split-left"
+  | "split-right";
 
 export type SlotSize = "full" | "half" | "quarter";
 

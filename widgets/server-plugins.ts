@@ -1,6 +1,7 @@
 import type { PluginMeta } from "./types";
 import { fetchWeather } from "./weather/fetcher";
 import { fetchRss } from "./rss/fetcher";
+import { fetchAqi } from "./aqi/fetcher";
 
 export const serverPlugins: PluginMeta[] = [
   {
@@ -129,6 +130,32 @@ export const serverPlugins: PluginMeta[] = [
         defaultValue: "#000000",
       },
     ],
+  },
+  {
+    id: "aqi",
+    name: "Air Quality (AQI)",
+    description: "Live AQI, PM2.5, PM10, CO, SO₂, NO₂, O₃ and weather for any city",
+    icon: "🌫️",
+    defaultRefreshMinutes: 20,
+    configFields: [
+      {
+        key: "token",
+        label: "AQICN API Token",
+        type: "password",
+        required: true,
+        helpText: "Free token from aqicn.org/data-platform/token/",
+      },
+      {
+        key: "city",
+        label: "City",
+        type: "text",
+        placeholder: "mumbai",
+        defaultValue: "mumbai",
+        helpText: "City name or @station-id from aqicn.org",
+        required: true,
+      },
+    ],
+    fetcher: fetchAqi,
   },
   {
     id: "webhook",

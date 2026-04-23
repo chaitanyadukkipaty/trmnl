@@ -1,20 +1,171 @@
 @import "tailwindcss";
 
+/* =================================================================
+   TRMNL DESIGN SYSTEM
+   Monochromatic, e-paper-inspired token system with 7-step grayscale.
+   Based on: https://trmnl.com/blog/design-system
+   ================================================================= */
+
+/* --- Dark theme (default) --- */
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Surfaces — 4-stop elevation stack */
+  --trmnl-bg:        #000000;
+  --trmnl-surface-1: #0d0d0b;
+  --trmnl-surface-2: #181814;
+  --trmnl-surface-3: #242420;
+
+  /* Borders — 3-stop weight scale */
+  --trmnl-border-1:  #1c1c18;
+  --trmnl-border-2:  #2c2c28;
+  --trmnl-border-3:  #3c3c38;
+
+  /* Text — 5-stop readability scale */
+  --trmnl-text-1:  #ffffff;
+  --trmnl-text-2:  #d0d0c8;
+  --trmnl-text-3:  #909088;
+  --trmnl-text-4:  #585852;
+  --trmnl-text-5:  #343430;
+
+  /* Grayscale — 7-stop dithering-inspired scale (e-ink simulation) */
+  --trmnl-gray-1: #e8e8e0;
+  --trmnl-gray-2: #c8c8c0;
+  --trmnl-gray-3: #a8a8a0;
+  --trmnl-gray-4: #888880;
+  --trmnl-gray-5: #686860;
+  --trmnl-gray-6: #484840;
+  --trmnl-gray-7: #282820;
+
+  /* Accent — inverted from foreground for call-to-action elements */
+  --trmnl-accent:       #ffffff;
+  --trmnl-accent-bg:    #ffffff;
+  --trmnl-accent-text:  #000000;
+  --trmnl-accent-hover: #e5e7eb;
+
+  /* Functional colors */
+  --trmnl-code:         #4ade80;
+  --trmnl-error:        #7f1d1d;
+  --trmnl-error-bg:     #030712;
+  --trmnl-error-border: #450a0a;
+
+  /* Typography scale */
+  --trmnl-font-xs:         0.6875rem;   /*  11px */
+  --trmnl-font-sm:         0.8125rem;   /*  13px */
+  --trmnl-font-base:       0.9375rem;   /*  15px */
+  --trmnl-font-lg:         1.125rem;    /*  18px */
+  --trmnl-font-xl:         1.375rem;    /*  22px */
+  --trmnl-font-2xl:        1.75rem;     /*  28px */
+  --trmnl-font-3xl:        2.25rem;     /*  36px */
+  --trmnl-font-display-sm: 4rem;        /*  64px */
+  --trmnl-font-display:    7rem;        /* 112px */
+  --trmnl-font-display-lg: 10rem;       /* 160px */
+
+  /* Spacing scale */
+  --trmnl-sp-1:  0.25rem;
+  --trmnl-sp-2:  0.5rem;
+  --trmnl-sp-3:  0.75rem;
+  --trmnl-sp-4:  1rem;
+  --trmnl-sp-5:  1.25rem;
+  --trmnl-sp-6:  1.5rem;
+  --trmnl-sp-8:  2rem;
+  --trmnl-sp-10: 2.5rem;
+  --trmnl-sp-12: 3rem;
+
+  /* Border radii */
+  --trmnl-radius-sm: 0.25rem;
+  --trmnl-radius:    0.5rem;
+  --trmnl-radius-lg: 0.75rem;
+
+  /* Motion */
+  --trmnl-ease:      150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --trmnl-ease-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Legacy aliases */
+  --background: var(--trmnl-bg);
+  --foreground: var(--trmnl-text-1);
 }
 
+/* --- Light theme --- */
+[data-theme="light"] {
+  /* Surfaces — warm white to cream paper stack */
+  --trmnl-bg:        #fafaf8;
+  --trmnl-surface-1: #f4f4f0;
+  --trmnl-surface-2: #edede8;
+  --trmnl-surface-3: #e4e4de;
+
+  /* Borders */
+  --trmnl-border-1:  #deded8;
+  --trmnl-border-2:  #ceced0;
+  --trmnl-border-3:  #b4b4ac;
+
+  /* Text */
+  --trmnl-text-1:  #0a0a08;
+  --trmnl-text-2:  #2c2c28;
+  --trmnl-text-3:  #4a4a44;
+  --trmnl-text-4:  #6a6a62;
+  --trmnl-text-5:  #8a8a82;
+
+  /* Grayscale — inverted for light backgrounds */
+  --trmnl-gray-1: #282820;
+  --trmnl-gray-2: #484840;
+  --trmnl-gray-3: #686860;
+  --trmnl-gray-4: #888878;
+  --trmnl-gray-5: #a8a898;
+  --trmnl-gray-6: #c8c8b8;
+  --trmnl-gray-7: #e8e8d8;
+
+  /* Accent — inverted for light bg: dark button with light text */
+  --trmnl-accent:       #000000;
+  --trmnl-accent-bg:    #0a0a08;
+  --trmnl-accent-text:  #fafaf8;
+  --trmnl-accent-hover: #1c1c16;
+
+  /* Functional colors on light bg */
+  --trmnl-code:         #166534;
+  --trmnl-error:        #991b1b;
+  --trmnl-error-bg:     #fef2f2;
+  --trmnl-error-border: #fca5a5;
+
+  --background: var(--trmnl-bg);
+  --foreground: var(--trmnl-text-1);
+}
+
+/* Expose TRMNL tokens as Tailwind color utilities via @theme inline */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-trmnl-bg:          var(--trmnl-bg);
+  --color-trmnl-surface-1:   var(--trmnl-surface-1);
+  --color-trmnl-surface-2:   var(--trmnl-surface-2);
+  --color-trmnl-surface-3:   var(--trmnl-surface-3);
+  --color-trmnl-border-1:    var(--trmnl-border-1);
+  --color-trmnl-border-2:    var(--trmnl-border-2);
+  --color-trmnl-border-3:    var(--trmnl-border-3);
+  --color-trmnl-text-1:      var(--trmnl-text-1);
+  --color-trmnl-text-2:      var(--trmnl-text-2);
+  --color-trmnl-text-3:      var(--trmnl-text-3);
+  --color-trmnl-text-4:      var(--trmnl-text-4);
+  --color-trmnl-text-5:      var(--trmnl-text-5);
+  --color-trmnl-gray-1:      var(--trmnl-gray-1);
+  --color-trmnl-gray-2:      var(--trmnl-gray-2);
+  --color-trmnl-gray-3:      var(--trmnl-gray-3);
+  --color-trmnl-gray-4:      var(--trmnl-gray-4);
+  --color-trmnl-gray-5:      var(--trmnl-gray-5);
+  --color-trmnl-gray-6:      var(--trmnl-gray-6);
+  --color-trmnl-gray-7:      var(--trmnl-gray-7);
+  --color-trmnl-accent:      var(--trmnl-accent);
+  --color-trmnl-accent-bg:   var(--trmnl-accent-bg);
+  --color-trmnl-accent-text: var(--trmnl-accent-text);
+  --color-trmnl-code:        var(--trmnl-code);
+  --color-trmnl-error:       var(--trmnl-error);
 }
 
+/* Base styles */
 html, body {
-  background: #000;
-  color: #fff;
+  background-color: var(--trmnl-bg);
+  color: var(--trmnl-text-1);
   font-family: var(--font-geist-sans), Arial, sans-serif;
 }
 
@@ -22,17 +173,71 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #111;
-}
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--trmnl-surface-1); }
+::-webkit-scrollbar-thumb { background: var(--trmnl-border-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--trmnl-text-4); }
+
+/* =================================================================
+   LIGHT THEME — TAILWIND UTILITY REMAPS
+   Translates hardcoded dark Tailwind classes to TRMNL light tokens.
+   These rules are written outside @layer so they outrank Tailwind's
+   layered utilities in the cascade — no !important needed.
+   ================================================================= */
+
+[data-theme="light"] {
+
+  /* ── Surfaces ── */
+  .bg-black    { background-color: var(--trmnl-bg); }
+  .bg-gray-900 { background-color: var(--trmnl-surface-2); }
+  .bg-gray-800 { background-color: var(--trmnl-surface-3); }
+  .bg-gray-700 { background-color: var(--trmnl-gray-6); }
+  .bg-gray-400 { background-color: var(--trmnl-gray-4); }
+  .bg-white    { background-color: var(--trmnl-accent-bg); }
+  .bg-red-950  { background-color: var(--trmnl-error-bg); }
+
+  /* ── Text ── */
+  .text-white   { color: var(--trmnl-text-1); }
+  .text-black   { color: var(--trmnl-accent-text); }
+  .text-gray-300 { color: var(--trmnl-text-2); }
+  .text-gray-400 { color: var(--trmnl-text-3); }
+  .text-gray-500 { color: var(--trmnl-text-3); }
+  .text-gray-600 { color: var(--trmnl-text-4); }
+  .text-gray-700 { color: var(--trmnl-text-5); }
+  .text-green-400 { color: var(--trmnl-code); }
+  .text-red-900   { color: var(--trmnl-error); }
+  .text-red-400   { color: var(--trmnl-error); }
+
+  /* ── Borders ── */
+  .border-gray-800 { border-color: var(--trmnl-border-1); }
+  .border-gray-700 { border-color: var(--trmnl-border-2); }
+  .border-gray-600 { border-color: var(--trmnl-border-3); }
+  .border-gray-500 { border-color: var(--trmnl-border-3); }
+  .border-red-800  { border-color: var(--trmnl-error-border); }
+
+  /* Border-top color for spinner animation */
+  .border-t-gray-400 { border-top-color: var(--trmnl-text-3); }
+
+  /* ── Dividers ── */
+  .divide-gray-800 > * + * {
+    border-color: var(--trmnl-border-1);
+  }
+  .divide-gray-800 > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--trmnl-border-1);
+  }
+
+  /* ── Hover states ── */
+  .hover\:text-white:hover      { color: var(--trmnl-text-1); }
+  .hover\:bg-gray-800:hover     { background-color: var(--trmnl-surface-3); }
+  .hover\:bg-gray-200:hover     { background-color: var(--trmnl-accent-hover); }
+  .hover\:border-gray-700:hover { border-color: var(--trmnl-border-2); }
+  .hover\:border-gray-600:hover { border-color: var(--trmnl-border-3); }
+  .hover\:border-gray-500:hover { border-color: var(--trmnl-border-3); }
+
+  /* ── Focus states ── */
+  .focus\:border-gray-400:focus { border-color: var(--trmnl-text-3); }
+
+  /* ── Placeholder text ── */
+  .placeholder-gray-600::placeholder { color: var(--trmnl-text-4); }
 }

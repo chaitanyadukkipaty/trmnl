@@ -24,7 +24,7 @@ export default async function EditWidgetPage({
   }));
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="p-8">
       <h1 className="text-2xl font-bold mb-1">Edit Widget</h1>
       <p className="text-gray-500 text-sm mb-8">{widget.name}</p>
       <WidgetForm
@@ -36,6 +36,7 @@ export default async function EditWidgetPage({
           config: (widget.config ?? {}) as Record<string, unknown>,
           refreshIntervalMinutes: widget.refreshIntervalMinutes,
         }}
+        initialCachedData={widget.cachedData}
       />
     </div>
   );

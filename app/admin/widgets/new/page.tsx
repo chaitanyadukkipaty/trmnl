@@ -9,7 +9,7 @@ export default function NewWidgetPage() {
   }));
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="p-8">
       <h1 className="text-2xl font-bold mb-1">New Widget</h1>
       <p className="text-gray-500 text-sm mb-8">Choose a plugin and configure it</p>
       <WidgetForm plugins={plugins} />

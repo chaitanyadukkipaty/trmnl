@@ -21,13 +21,14 @@ export default async function SettingsPage() {
     dimBrightness: 0.1,
   };
 
+  const displayTheme = (map["display_theme"] as "dark" | "light") ?? "dark";
   const cronSecret = process.env.CRON_SECRET ?? "";
 
   return (
     <div className="p-8 max-w-2xl">
       <h1 className="text-2xl font-bold mb-1">Settings</h1>
       <p className="text-gray-500 text-sm mb-8">Configure display behavior</p>
-      <SettingsForm nightMode={nightMode} cronSecret={cronSecret} />
+      <SettingsForm nightMode={nightMode} cronSecret={cronSecret} displayTheme={displayTheme} />
     </div>
   );
 }
